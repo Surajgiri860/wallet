@@ -6,10 +6,18 @@
       <title>True Wallet</title>
       <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
       <style>
+         /* ✅ Prevent horizontal scroll */
+         html, body {
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+         }
+         
          .custom-box {
             width: 100%;
-            height: 90px; /* Adjust the height */
-            background-color: #007bff; /* Blue color */
+            height: 90px;
+            background-color: #007bff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -21,7 +29,7 @@
             transition: 0.3s ease-in-out;
          }
          .custom-box:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #0056b3;
          }
          .custom-box a {
             color: white;
@@ -29,6 +37,7 @@
          }
 
          .containers {
+            width: 100%;
             max-width: 500px;
             margin: 50px auto;
             padding: 20px;
@@ -36,14 +45,17 @@
             border-radius: 10px;
             text-align: center;
         }
+
         h2 {
             margin-bottom: 20px;
             font-weight: bold;
         }
+
         .user-info {
             margin: 10px 0;
             font-size: 18px;
         }
+
         .balance {
             font-size: 24px;
             font-weight: bold;
@@ -53,10 +65,27 @@
             display: inline-block;
             border-radius: 5px;
         }
+
+        /* ✅ Mobile Responsive */
+        @media (max-width: 576px) {
+            .containers {
+                width: 90%;
+                margin: 30px auto;
+                padding: 15px;
+            }
+            .custom-box {
+                font-size: 18px;
+                height: 70px;
+            }
+            .balance {
+                font-size: 20px;
+                padding: 8px;
+            }
+        }
       </style>
    </head>
    <body class="bg-light">
-        <nav class="navbar navbar-expand-md bg-white shadow-lg">
+        <nav class="navbar navbar-expand-md bg-white shadow-lg container-fluid">
             <div class="container">
                 <a class="navbar-brand" href="http://127.0.0.1:8000/account/dashboard"><strong>True Wallet</strong></a>
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -76,8 +105,8 @@
                                     Hello, {{ Auth::user()->name }}
                                 </a>
                                 <ul class="dropdown-menu border-0 shadow">
-                                <li><a class="dropdown-item" href="http://127.0.0.1:8000/account/deposit">Deposit      ></a></li>
-                                <li><a class="dropdown-item" href="http://127.0.0.1:8000/account/withdraw">Withdraw     ></a></li>
+                                    <li><a class="dropdown-item" href="http://127.0.0.1:8000/account/deposit">Deposit ></a></li>
+                                    <li><a class="dropdown-item" href="http://127.0.0.1:8000/account/withdraw">Withdraw ></a></li>
                                     <li><a class="dropdown-item" href="{{ route('account.logout') }}">Logout</a></li>
                                 </ul>
                             </li>
@@ -86,32 +115,30 @@
                 </div>
             </div>
         </nav>
-        <div>
-        <div class="containers">
-                    <h2>Personal Details</h2>
-                    <p class="user-info"><strong>Name:</strong> {{ $user->name }}</p>
-                    <p class="user-info"><strong>Email:</strong> {{ $user->email }}</p>
-                    
-                    <p class="mb-2"><strong>Registered Since:</strong> {{ Auth::user()->created_at->format('M d, Y') }}</p>
-                    <p class="balance"><strong>Balance:</strong> ${{ $user->total_bal }}</p>
 
-                </div>
+        <div class="containers">
+            <h2>Personal Details</h2>
+            <p class="user-info"><strong>Name:</strong> {{ $user->name }}</p>
+            <p class="user-info"><strong>Email:</strong> {{ $user->email }}</p>
+            <p class="mb-2"><strong>Registered Since:</strong> {{ Auth::user()->created_at->format('M d, Y') }}</p>
+            <p class="balance"><strong>Balance:</strong> ${{ $user->total_bal }}</p>
+        </div>
 
         <div class="container mt-4">
-            <div class="row g-4">
-                <div class="col-md-6">
+            <div class="row g-3">
+                <div class="col-md-6 col-12">
                     <a href="{{ route('account.deposit') }}" class="custom-box">
                         Deposit
                     </a>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-12">
                     <a href="{{ route('withdraw.page') }}" class="custom-box">
                         Withdraw
                     </a>
                 </div>
             </div>
         </div>
-        </div>
+
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
    </body>
 </html>
