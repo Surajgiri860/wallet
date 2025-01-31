@@ -15,7 +15,6 @@ use App\Models\User;
 
 class DashboardController extends Controller
 {
-    // Dashboard page for customer
     public function index()
     {
         return redirect('dashboard');
