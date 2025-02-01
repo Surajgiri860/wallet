@@ -11,4 +11,6 @@ class Config extends Model
     
     protected $table = 'percentage'; // टेबल का नाम
     protected $fillable = ['key', 'value'];
+    public $timestamps = true;
+
 }
