@@ -8,6 +8,7 @@ use App\Services\UserService;
 use App\Models\User;
 use App\Models\RequestTransaction; 
 use App\Models\config;
+use App\Models\Banner;
 
 
 
@@ -149,6 +150,41 @@ class DashboardController extends Controller
                     $feePercentage = config::where('key', 'deposit_fee')->value('value') ?? 0;
                     return view('admin.fee', compact('feePercentage'));
                 }
+                
+
+                public function banner()
+                {
+                    $banner = Banner::first();
+                    return view('admin.banner', compact('banner'));
+                }
+
+                public function update(Request $request)
+            {
+                $request->validate([
+                    'title' => 'nullable|string|max:255',
+                    'content' => 'nullable|string',
+                    'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+                ]);
+
+                $banner = Banner::firstOrCreate([]);
+
+                // ✅ Image Upload & Save in Database
+                if ($request->hasFile('image')) {
+                    $imagePath = $request->file('image')->store('banners', 'public');
+                    $banner->image = $imagePath;
+                }
+
+                // ✅ Title & Content Save
+                $banner->title = $request->title;
+                $banner->content = $request->content;
+                
+                // ✅ Save All Data (Image, Title, Content)
+                $banner->save();
+
+                return back()->with('success', 'Banner updated successfully!');
+            }
+
+          
                 
 
 

@@ -107,9 +107,9 @@
                             </div>
                         </div>
                         <div class="col-sm-5 text-center text-sm-left">
-                            <div class="card-body pb-0 px-0 px-md-4" style="margin-bottom: 10px;">
-                                <img src="..\themeAssets\img\matka\matka.png" height="140" alt="Admin Profile Image" data-app-dark-img="..\themeAssets\img\matka\matka.png" data-app-light-img="..\themeAssets\img\matka\matka.png">
-                            </div>
+                        <div class="text-center mt-3">
+        <a href="http://127.0.0.1:8000/admin/banner" class="btn btn-primary">Add Banner</a>
+    </div>
                         </div>
                     </div>
                 </div>

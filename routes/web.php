@@ -72,6 +72,10 @@ Route::group(['prefix' =>'admin'],function(){
         Route::get('/request-transaction', [AdminDashboardcontroller::class, 'showRequestTransaction']);
         Route::get('/fee', [AdminDashboardcontroller::class, 'showFeeForm'])->name('fee.form');
         Route::post('/update-fee', [AdminDashboardcontroller::class, 'updateFee'])->name('update.fee');
+
+        Route::get('/banner', [AdminDashboardcontroller::class, 'banner'])->name('admin.banner');
+        Route::post('/banner/update', [AdminDashboardcontroller::class, 'update'])->name('admin.banner.update');
+    
     });
     });
 

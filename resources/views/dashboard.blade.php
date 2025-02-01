@@ -13,6 +13,44 @@
             margin: 0;
             padding: 0;
          }
+
+         .banner-container {
+        padding: 20px;
+        background-color: #f0f8ff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .banner-image {
+        width: 100%;
+        height: 300px;  /* ✅ Fixed Height */
+        object-fit: cover;  /* ✅ Image ko Crop Karke Fit Karega */
+        border-radius: 8px;
+    }
+
+    .banner-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #333;
+        margin: 10px 0;
+    }
+
+    .banner-content {
+        font-size: 18px;
+        color: #555;
+    }
+
+    @media (max-width: 768px) {
+        .banner-image {
+            height: 200px;  /* ✅ Mobile ke liye Adjusted Height */
+        }
+        .banner-title {
+            font-size: 22px;
+        }
+        .banner-content {
+            font-size: 16px;
+        }
+    }
          
          .custom-box {
             width: 100%;
@@ -115,6 +153,28 @@
                 </div>
             </div>
         </nav>
+
+        <!-- BANNER IMAGE  -->
+        <div class="container mt-3">
+                        @php
+                            $banner = \App\Models\Banner::first();
+                        @endphp
+                        
+                        @if($banner)
+                            <div class="alert alert-primary text-center banner-container">
+                                @if($banner->image)
+                                    <img src="{{ Storage::url($banner->image) }}" class="banner-image mb-2" alt="Banner Image">
+                                @endif
+                                @if($banner->title)
+                                    <h3 class="banner-title">{{ $banner->title }}</h3>
+                                @endif
+                                @if($banner->content)
+                                    <p class="banner-content">{{ $banner->content }}</p>
+                                @endif
+                            </div>
+                        @endif
+                    </div>
+
 
         <div class="containers">
             <h2>Personal Details</h2>
