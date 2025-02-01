@@ -10,6 +10,7 @@ use App\Models\WalletTransactions;
 use Illuminate\Support\Facades\DB;
 use App\Models\RequestTransaction; // Import the model
 use App\Models\User;
+use App\Models\config;
 
 
 
@@ -20,25 +21,67 @@ class DashboardController extends Controller
         return redirect('dashboard');
     }
 
-            public function deposit()
-        {
-            $user = Auth::user(); // Current authenticated user
+    public function deposit(Request $request)
+{
+    $user = Auth::user();
 
-            // Agar user null hai
-            if ($user === null) {
-                $view = "Templates.Welcome";
-                return view('Front', compact('view'));
-            }
+    if ($user === null) {
+        $view = "Templates.Welcome";
+        return view('Front', compact('view'));
+    }
 
-            // Fetch user wallet and requests
-            $wallet = Wallet::where('user_id', $user->id)->first();
-            $requests = DB::table('Request_transaction')
-                ->where('user_id', $user->id)
-                ->get(); // Fetch user's deposit requests
+    // Fetch deposit fee from config
+    $feePercentage = Config::where('key', 'deposit_fee')->value('value');
+    if ($feePercentage === null) {
+        $feePercentage = 0; // Default fee 0 if not found
+    }
 
-            $view = 'Templates.deposit';
-            return view('deposit', compact('view', 'user', 'wallet', 'requests'));
+    if ($request->isMethod('post')) {
+        $request->validate([
+            'amount' => 'required|numeric|min:1'
+        ]);
+
+        $amount = $request->input('amount');
+        $feeAmount = ($amount * $feePercentage) / 100;
+        $netAmount = $amount - $feeAmount;
+
+        DB::beginTransaction(); // Start Transaction
+
+        try {
+            // Find or create wallet
+            $wallet = Wallet::firstOrCreate(['user_id' => $user->id]);
+
+            // Update wallet balance
+            $wallet->balance += $netAmount;
+            $wallet->save();
+
+            // Log the deposit transaction
+            Transaction::create([
+                'user_id' => $user->id,
+                'type' => 'deposit',
+                'amount' => $amount,
+                'fee' => $feeAmount,
+                'final_amount' => $netAmount,
+                'status' => 'completed'
+            ]);
+
+            DB::commit(); // Commit Transaction
+
+            return back()->with('success', "Deposit successful! ₹$netAmount added after ₹$feeAmount fee deduction.");
+        } catch (\Exception $e) {
+            DB::rollBack(); // Rollback Transaction on Error
+            return back()->with('error', "Deposit failed! Please try again.");
         }
+    }
+
+    // Fetch wallet details and transaction requests
+    $wallet = Wallet::where('user_id', $user->id)->first();
+    $requests = DB::table('Request_transaction')->where('user_id', $user->id)->get();
+
+    $view = 'Templates.deposit';
+    return view('deposit', compact('view', 'user', 'wallet', 'requests', 'feePercentage'));
+}
+    
 
 
         public function storeRequestTransaction(Request $request)
@@ -114,6 +157,8 @@ class DashboardController extends Controller
 
         return redirect()->route('withdraw.page')->with('success', 'Withdrawal request submitted successfully.');
     }
+
+    
     
    
 }

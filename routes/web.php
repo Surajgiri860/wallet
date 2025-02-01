@@ -70,6 +70,8 @@ Route::group(['prefix' =>'admin'],function(){
         Route::post('/reject-request/{id}', [AdminDashboardcontroller::class, 'rejectRequest'])->name('admin.rejectRequest');
         Route::get('/users', [AdminDashboardcontroller::class, 'Userlist'])->name('users.index');
         Route::get('/request-transaction', [AdminDashboardcontroller::class, 'showRequestTransaction']);
+        Route::get('/fee', [AdminDashboardcontroller::class, 'showFeeForm'])->name('fee.form');
+        Route::post('/update-fee', [AdminDashboardcontroller::class, 'updateFee'])->name('update.fee');
     });
     });
 
