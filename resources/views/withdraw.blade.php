@@ -100,16 +100,29 @@
         <div class="card">
             <div class="card-body">
                 <div class="contact-form mt-3">
-                    <form action="{{ route('withdraw.request') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="user_id" value="{{ Auth::id() }}"> <!-- User ID -->
-                        <input type="hidden" name="type" value="2"> <!-- 2 for Withdraw -->
+                <form action="{{ route('withdraw.request') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ Auth::id() }}"> <!-- User ID -->
+                            <input type="hidden" name="type" value="2"> <!-- 2 for Withdraw -->
 
-                        <label for="request_amount">Request Amount:</label>
-                        <input type="number" name="request_amount" id="request_amount" required>
+                            <label for="request_amount">Request Amount:</label>
+                            <input type="number" name="request_amount" id="request_amount" required>
 
-                        <button type="submit" class="btn btn-primary mt-3 w-100">Submit Request</button>
-                    </form>
+                            <button type="submit" class="btn btn-primary mt-3 w-100">Submit Request</button>
+                        </form>
+
+                        <script>
+                            document.getElementById('request_amount').addEventListener('input', function() {
+                                let userBalance = {{ Auth::user()->total_bal ?? 0 }}; // Fetch user's total balance
+                                let enteredAmount = parseFloat(this.value);
+
+                                if (enteredAmount > userBalance) {
+                                    alert("You cannot withdraw more than your available balance (₹" + userBalance + ")");
+                                    this.value = userBalance; // Reset to max allowable balance
+                                }
+                            });
+                        </script>
+
                 </div>
             </div>
         </div>
