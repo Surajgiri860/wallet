@@ -100,18 +100,31 @@
 <div class="page-content-wrapper">
     <div class="container">
         <div class="card">
-            <div class="card-body text-center">
-                <h5 class="mb-1">Add Money</h5>
-                <p class="mb-4">Scan the provided QR code to make a payment, and fill in the required details to add money to your account. (Note: Please review all fields before saving.)</p>
+        <div class="card-body text-center">
+    <h5 class="mb-1">Add Money</h5>
+    <p class="mb-4">
+        Scan the provided QR code to make a payment, and fill in the required details to add money to your account.  
+        (Note: Please review all fields before saving.)
+    </p>
 
-                @if(isset($payment['qrpic']))
-                    <img src="{{ publicPath($payment['qrpic'])}}" alt="QR Code" class="img-fluid mb-3">
-                @endif
+    @if(isset($payment['qrpic']))
+        <img src="{{ publicPath($payment['qrpic']) }}" alt="QR Code" class="img-fluid mb-3">
+    @endif
 
-                @if(isset($payment['upiId']))
-                    <h5 class="mb-1">UPI ID: {{ $payment['upiId'] }}</h5>
-                @endif
-            </div>
+    @if(isset($payment['upiId']))
+        <h5 class="mb-1">UPI ID: {{ $payment['upiId'] }}</h5>
+    @endif
+
+    <!-- Fetch Deposit Fee from Config and Display -->
+    @php
+        $depositFee = \App\Models\Config::where('key', 'deposit_fee')->value('value') ?? 0;
+    @endphp
+
+    <div class="alert alert-info mt-3">
+        <strong>Note:</strong> A deposit fee of <strong>{{ $depositFee }}%</strong> will be deducted from your deposit amount.
+    </div>
+</div>
+
         </div>
 
         <div class="card">
