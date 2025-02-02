@@ -125,7 +125,7 @@
    <body class="bg-light">
         <nav class="navbar navbar-expand-md bg-white shadow-lg container-fluid">
             <div class="container">
-                <a class="navbar-brand" href="http://127.0.0.1:8000/account/dashboard"><strong>True Wallet</strong></a>
+                <a class="navbar-brand" href="http://13.51.239.115/account/dashboard"><strong>True Wallet</strong></a>
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
@@ -143,9 +143,9 @@
                                     Hello, {{ Auth::user()->name }}
                                 </a>
                                 <ul class="dropdown-menu border-0 shadow">
-                                    <li><a class="dropdown-item" href="http://127.0.0.1:8000/account/deposit">Deposit ></a></li>
-                                    <li><a class="dropdown-item" href="http://127.0.0.1:8000/account/withdraw">Withdraw ></a></li>
-                                    <li><a class="dropdown-item" href="{{ route('account.logout') }}">Logout</a></li>
+                                    <li><a class="dropdown-item" href="http://13.51.239.115/account/deposit">Deposit ></a></li>
+                                    <li><a class="dropdown-item" href="http://13.51.239.115/account/withdraw">Withdraw ></a></li>
+                                    <li><a class="dropdown-item" href="http://13.51.239.115/">Logout</a></li>
                                 </ul>
                             </li>
                         </ul>
