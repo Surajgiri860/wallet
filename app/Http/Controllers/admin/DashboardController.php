@@ -40,7 +40,7 @@ class DashboardController extends Controller
         $paymentRequests = DB::table('Request_transaction')->get();
 
         // Pass the data to the view
-        return view('Admin.paymentPage', compact('view', 'user', 'paymentRequests'));
+        return view('admin.paymentPage', compact('view', 'user', 'paymentRequests'));
     }
 
     // Approve Withdraw or Deposit Requests
