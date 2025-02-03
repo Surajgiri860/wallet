@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 
 
-class Logincontroller extends Controller
+class LoginController extends Controller
 {
     //this method will show login page for customer
 
