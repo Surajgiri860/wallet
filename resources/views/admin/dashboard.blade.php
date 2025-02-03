@@ -84,7 +84,8 @@
                         <ul class="navbar-nav justify-content-end flex-grow-1">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#!" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hello, {{ Auth::guard('admin')->user()->name }}</a>
-                                <ul class="dropdown-menu border-0 shadow bsb-zoomIn" aria-labelledby="accountDropdown">                          
+                                <ul class="dropdown-menu border-0 shadow bsb-zoomIn" aria-labelledby="accountDropdown"> 
+                                                             
                                     <li><a class="dropdown-item" href="{{ route('admin.logout') }}">Logout</a></li>
                                     
                                 </ul>
@@ -150,6 +151,14 @@
                             <div class="card-body">
                                 <span class="fw-semibold d-block mb-1">Withdraw Request (<small class="text-success fw-semibold">View</small>)</span>
                                 <a href="{{ route('admin.withdrawRequests')}}">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-6 mb-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <span class="fw-semibold d-block mb-1">Payment Settings (<small class="text-success fw-semibold">View</small>)</span>
+                                <a href="{{ route('admin.paymentSettings') }}">View More</a>
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,7 @@ use App\Models\RequestTransaction;
 use App\Models\config;
 use App\Models\Banner;
 use App\Models\PaymentDetail;
+use App\Models\AdminPaymentDetail;
 
 
 
@@ -197,6 +198,43 @@ class DashboardController extends Controller
                     return view('admin.payment_details', compact('user', 'paymentDetails'));
                 }
 
+                public function showAdminPaymentSettings()
+                {
+                    // Admin द्वारा डाले गए Payment Details को लाना
+                    $paymentDetails = AdminPaymentDetail::latest()->first();
+            
+                    return view('admin.payment_settings', compact('paymentDetails'));
+                }
+            
+                public function savePaymentDetails(Request $request)
+                {
+                    $request->validate([
+                        'upi_id' => 'required|string',
+                        'bank_name' => 'required|string',
+                        'account_number' => 'required|string',
+                        'ifsc_code' => 'required|string',
+                        'qrpic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+                    ]);
+            
+                    // पुराने डेटा को हटा दें और नया डेटा सेव करें
+                    AdminPaymentDetail::truncate();
+            
+                    $paymentDetails = new AdminPaymentDetail();
+                    $paymentDetails->upi_id = $request->upi_id;
+                    $paymentDetails->bank_name = $request->bank_name;
+                    $paymentDetails->account_number = $request->account_number;
+                    $paymentDetails->ifsc_code = $request->ifsc_code;
+            
+                    // QR Code Image अपलोड करना
+                    if ($request->hasFile('qrpic')) {
+                        $filePath = $request->file('qrpic')->store('payment_qr_codes', 'public');
+                        $paymentDetails->qrpic = $filePath;
+                    }
+            
+                    $paymentDetails->save();
+            
+                    return redirect()->back()->with('success', 'Payment details updated successfully!');
+                }
           
                 
 

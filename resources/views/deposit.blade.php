@@ -1,200 +1,194 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Money</title>
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Custom Styles */
         body {
-            background-color: #f4f4f4;
-            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
         }
-        .header-area {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 0;
-        }
-        .header-area .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .page-heading h6 {
-            font-size: 20px;
-            margin: 0;
-        }
-        .page-content-wrapper {
+        .container {
+            max-width: 800px;
             margin-top: 30px;
         }
-        .card {
-            margin-bottom: 20px;
-        }
-        .card-body {
+        .qr-section {
             background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .card-body h5, .card-body p {
-            color: #333;
-        }
-        .contact-form input[type="number"], .contact-form input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-        .contact-form button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .contact-form button:hover {
-            background-color: #0056b3;
-        }
-        .table th, .table td {
-            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
             text-align: center;
         }
-        .product-title {
-            color: #007bff;
+        .qr-section img {
+            max-width: 250px;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+        .payment-details {
+            background-color: #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .deposit-form .card {
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .deposit-form .form-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        .deposit-form .btn-primary {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+        }
+        .back-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #6c757d;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-decoration: none;
+            transition: background-color 0.3s ease;
         }
-        .product-title:hover {
-            text-decoration: underline;
+        .back-btn:hover {
+            background-color: #495057;
         }
-        .table {
-            background-color: #f9f9f9;
-            border-radius: 8px;
+        .table-responsive {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .table thead {
+            background-color: #007bff;
+            color: white;
+        }
+        .table-image {
+            max-width: 50px;
+            max-height: 50px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .table-image:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
+    <div class="container position-relative">
+        <a href="{{ route('account.dashboard')}}" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        
+        <h2 class="mb-4 text-primary text-center">Add Money</h2>
 
-<!-- Header Area-->
-<div class="header-area" id="headerArea">
-    <div class="container h-100 d-flex align-items-center justify-content-between">
-        <!-- Back Button-->
-        <div class="back-button me-2">
-            <a href="{{ route('account.dashboard') }}" class="btn btn-link" style="color: black;">
-                <i class="ti ti-arrow-left"></i> Back
-            </a>
-        </div>
-        <!-- Page Title-->
-        <div class="page-heading">
-            <h6 class="mb-0">Add Money</h6>
-        </div>
-        <!-- Navbar Toggler-->
-        <div class="suha-navbar-toggler ms-2" data-bs-toggle="offcanvas" data-bs-target="#suhaOffcanvas" aria-controls="suhaOffcanvas">
-            <div><span></span><span></span><span></span></div>
-        </div>
-    </div>
-</div>
+        <p class="text-center">Scan the provided QR code to make a payment and fill in the required details.</p>
 
+        @if($paymentDetails)
+            <div class="qr-section">
+                @if($paymentDetails->qrpic)
+                    <img src="{{ asset('storage/' . $paymentDetails->qrpic) }}" alt="QR Code" class="img-fluid mb-3">
+                @endif
 
-<div class="page-content-wrapper">
-    <div class="container">
-        <div class="card">
-        <div class="card-body text-center">
-    <h5 class="mb-1">Add Money</h5>
-    <p class="mb-4">
-        Scan the provided QR code to make a payment, and fill in the required details to add money to your account.  
-        (Note: Please review all fields before saving.)
-    </p>
+                <div class="payment-details">
+                    <h5>UPI ID: {{ $paymentDetails->upi_id }}</h5>
+                    <h5>Bank Name: {{ $paymentDetails->bank_name }}</h5>
+                    <h5>Account Number: {{ $paymentDetails->account_number }}</h5>
+                    <h5>IFSC Code: {{ $paymentDetails->ifsc_code }}</h5>
+                </div>
+            </div>
+        @else
+            <p class="alert alert-warning text-center">No payment details available. Please check back later.</p>
+        @endif
 
-    @if(isset($payment['qrpic']))
-        <img src="{{ publicPath($payment['qrpic']) }}" alt="QR Code" class="img-fluid mb-3">
-    @endif
+        @php
+            $depositFee = \App\Models\Config::where('key', 'deposit_fee')->value('value') ?? 0;
+        @endphp
 
-    @if(isset($payment['upiId']))
-        <h5 class="mb-1">UPI ID: {{ $payment['upiId'] }}</h5>
-    @endif
-
-    <!-- Fetch Deposit Fee from Config and Display -->
-    @php
-        $depositFee = \App\Models\Config::where('key', 'deposit_fee')->value('value') ?? 0;
-    @endphp
-
-    <div class="alert alert-info mt-3">
-        <strong>Note:</strong> A deposit fee of <strong>{{ $depositFee }}%</strong> will be deducted from your deposit amount.
-    </div>
-</div>
-
+        <div class="alert alert-info mt-3 text-center">
+            <strong>Note:</strong> A deposit fee of <strong>{{ $depositFee }}%</strong> will be deducted from your deposit amount.
         </div>
 
-        <div class="card">
-            <div class="card-body">
-                <div class="contact-form mt-3">
-                <form action="{{ route('request.transaction') }}" method="POST" enctype="multipart/form-data">
+        <div class="deposit-form">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{ route('request.transaction') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                         <input type="hidden" name="type" value="1">
 
-                        <label for="request_amount">Request Amount:</label>
-                        <input type="number" name="request_amount" id="request_amount" required>
+                        <div class="mb-3">
+                            <label for="request_amount" class="form-label">Request Amount:</label>
+                            <input type="number" class="form-control" name="request_amount" id="request_amount" required>
+                        </div>
 
-                        <label for="utr_number">UTR Number (Optional):</label>
-                        <input type="text" name="utr_number" id="utr_number">
+                        <div class="mb-3">
+                            <label for="utr_number" class="form-label">UTR Number (Optional):</label>
+                            <input type="text" class="form-control" name="utr_number" id="utr_number">
+                        </div>
 
-                        <!-- Screenshot Upload -->
-                        <label for="screenshot">Upload Screenshot:</label>
-                        <input type="file" name="screenshot" id="screenshot" class="form-control" accept="image/*">
-                        <br>
+                        <div class="mb-3">
+                            <label for="screenshot" class="form-label">Upload Screenshot:</label>
+                            <input type="file" name="screenshot" id="screenshot" class="form-control" accept="image/*">
+                        </div>
 
-                        <button type="submit">Submit Request</button>
+                        <button type="submit" class="btn btn-primary">Submit Request</button>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Payment Status -->
-    <div class="container">
         <div class="cart-wrapper-area py-3">
-            <div class="cart-table card mb-3">
-                <div class="table-responsive card-body">
-                    <table class="table mb-0">
-                    <thead>
-                    <tr>
-                        <th>UTR Number</th>
-                        <th>Deposit Amount</th>
-                        <th>Request Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($requests as $request)
-                        @if($request->type == 1) <!-- Only show deposit entries -->
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead>
                             <tr>
-                                <td>{{ $request->utr_number }}</td>
-                                <td>{{ $request->request_amount }}</td>
-                                <td>{{ ucfirst($request->request_status) }}</td>
-                                <td>
-                                    @if($request->screenshot)
-                                        <a href="{{ asset('storage/' . $request->screenshot) }}" target="_blank">
-                                            <img src="{{ asset('storage/' . $request->screenshot) }}" width="50" height="50" alt="Screenshot">
-                                        </a>
-                                    @else
-                                        No Image
-                                    @endif
-                                </td>
+                                <th>UTR Number</th>
+                                <th>Deposit Amount</th>
+                                <th>Request Status</th>
+                                <th>Screenshot</th>
                             </tr>
-                        @endif
-                    @endforeach
-                </tbody>
-
-
+                        </thead>
+                        <tbody>
+                            @foreach($requests as $request)
+                                @if($request->type == 1)
+                                    <tr>
+                                        <td>{{ $request->utr_number }}</td>
+                                        <td>{{ $request->request_amount }}</td>
+                                        <td>{{ ucfirst($request->request_status) }}</td>
+                                        <td>
+                                            @if($request->screenshot)
+                                                <a href="{{ asset('storage/' . $request->screenshot) }}" target="_blank">
+                                                    <img src="{{ asset('storage/' . $request->screenshot) }}" class="table-image" alt="Screenshot">
+                                                </a>
+                                            @else
+                                                No Image
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS and Font Awesome -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </body>
 </html>

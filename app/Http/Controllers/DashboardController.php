@@ -12,6 +12,7 @@ use App\Models\RequestTransaction; // Import the model
 use App\Models\User;
 use App\Models\config;
 use App\Models\PaymentDetail;
+use App\Models\AdminPaymentDetail;
 
 
 
@@ -38,7 +39,8 @@ class DashboardController extends Controller
             return view('Front', compact('view'));
         }
     
-        $feePercentage = config::where('key', 'deposit_fee')->value('value') ?? 0;  // Fetch the current fee
+        // Fetch deposit fee percentage
+        $feePercentage = config::where('key', 'deposit_fee')->value('value') ?? 0;  
     
         if ($request->isMethod('post')) {
             $request->validate([
@@ -65,12 +67,18 @@ class DashboardController extends Controller
             return back()->with('success', "Deposit successful! ₹$netAmount added after ₹$feeAmount fee deduction.");
         }
     
+        // Wallet balance and user requests
         $wallet = Wallet::where('user_id', $user->id)->first();
         $requests = DB::table('Request_transaction')->where('user_id', $user->id)->get();
     
+        // **Admin द्वारा डाले गए पेमेंट डिटेल्स लाना (Correct Model Used)**
+        $paymentDetails = AdminPaymentDetail::latest()->first();  
+    
         $view = 'Templates.deposit';
-        return view('deposit', compact('view', 'user', 'wallet', 'requests', 'feePercentage'));
+        return view('deposit', compact('view', 'user', 'wallet', 'requests', 'feePercentage', 'paymentDetails'));
     }
+    
+    
     
 
 
@@ -181,6 +189,11 @@ class DashboardController extends Controller
             return view('payment', compact('paymentDetails'));
         }
         
+        public function addMoneyPage()
+        {
+            $paymentDetails = AdminPaymentDetail::first();
+            return view('deposit', compact('paymentDetails'));
+        }
     
    
 }

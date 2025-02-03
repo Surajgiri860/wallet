@@ -8,6 +8,7 @@ use App\Http\Controllers\WalletController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Models\AdminPaymentDetail;
 
 
 
@@ -79,7 +80,17 @@ Route::group(['prefix' =>'admin'],function(){
         Route::get('/banner', [AdminDashboardController::class, 'banner'])->name('admin.banner');
         Route::post('/banner/update', [AdminDashboardController::class, 'update'])->name('admin.banner.update');
         
-        Route::get('/admin/payment-details/{user_id}', [AdminDashboardController::class, 'viewPaymentDetails'])->name('admin.viewPaymentDetails');
+        Route::get('/payment-details/{user_id}', [AdminDashboardController::class, 'viewPaymentDetails'])->name('admin.viewPaymentDetails');
+
+
+        
+
+        // Admin Payment Settings Page
+        Route::get('/payment-settings', [AdminDashboardController::class, 'showAdminPaymentSettings'])->name('admin.paymentSettings');
+
+        // Save Payment Details
+        Route::post('/save-payment-details', [AdminDashboardController::class, 'savePaymentDetails'])->name('admin.savePaymentDetails');
+
 
 
     });
