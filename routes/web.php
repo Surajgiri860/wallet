@@ -91,7 +91,9 @@ Route::group(['prefix' =>'admin'],function(){
         // Save Payment Details
         Route::post('/save-payment-details', [AdminDashboardController::class, 'savePaymentDetails'])->name('admin.savePaymentDetails');
 
-
+        Route::get('/block-user/{id}', [AdminDashboardController::class, 'blockUser'])->name('admin.blockUser');
+        Route::get('/unblock-user/{id}', [AdminDashboardController::class, 'unblockUser'])->name('admin.unblockUser');
+        Route::get('/delete-user/{id}', [AdminDashboardController::class, 'deleteUser'])->name('admin.deleteUser');
 
     });
     });

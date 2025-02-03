@@ -118,11 +118,14 @@ class DashboardController extends Controller
 
             public function userlist()
             {
-                // Fetch all users (with selected fields) ordered by created_at (optional)
-                $users = User::select('name', 'email', 'total_bal', 'created_at')->get();
-        
+                // Ensure 'id' is also selected
+                $users = User::select('id', 'name', 'email', 'total_bal', 'status', 'created_at')->get();
+            
                 return view('admin.userlist', compact('users'));
             }
+            
+
+
     
             public function showRequestTransaction()
                 {
@@ -236,7 +239,32 @@ class DashboardController extends Controller
                     return redirect()->back()->with('success', 'Payment details updated successfully!');
                 }
           
-                
+                public function blockUser($id)
+                    {
+                        $user = User::findOrFail($id);
+                        $user->status = 'blocked';
+                        $user->save();
+                        
+                        return back()->with('success', 'User has been blocked.');
+                    }
+
+                    public function unblockUser($id)
+                    {
+                        $user = User::findOrFail($id);
+                        $user->status = 'active';
+                        $user->save();
+
+                        return back()->with('success', 'User has been unblocked.');
+                    }
+
+                    public function deleteUser($id)
+                    {
+                        $user = User::findOrFail($id);
+                        $user->delete();
+
+                        return back()->with('success', 'User has been deleted.');
+                    }
+
 
 
 }
