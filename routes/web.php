@@ -31,8 +31,8 @@ Route::group(['prefix' =>'account'],function(){
     //Authenticate middleware
     Route::group(['middleware' =>'auth'],function(){
         Route::get('logout',[Logincontroller::class,'logout'])->name('account.logout');
+   
         Route::get('/dashboard',[Dashboardcontroller::class,'index'])->name('account.dashboard');
-
 
         Route::get('deposit', [Dashboardcontroller::class, 'deposit'])->name('account.deposit');
         Route::post('/request-transaction', [Dashboardcontroller::class, 'storeRequestTransaction'])->name('request.transaction');
@@ -41,7 +41,7 @@ Route::group(['prefix' =>'account'],function(){
         Route::post('/withdraw-request', [Dashboardcontroller::class, 'storeWithdrawRequest'])->name('withdraw.request');
 
         
-        Route::get('/dashboard', [UserController::class, 'dashboard']);
+       // Route::get('/dashboard', [UserController::class, 'dashboard']);
 
         
            });

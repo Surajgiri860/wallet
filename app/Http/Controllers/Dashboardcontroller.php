@@ -18,7 +18,14 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return redirect('dashboard');
+        //die('test');
+      $user =   auth()->user(); // This assumes you are using Laravel's built-in authentication.
+
+    // Pass the user to the view
+    return view('dashboard', compact('user'));
+
+        
+      //  return redirect('dashboard');
     }
 
     public function deposit(Request $request)

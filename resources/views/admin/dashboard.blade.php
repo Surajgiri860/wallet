@@ -108,7 +108,7 @@
                         </div>
                         <div class="col-sm-5 text-center text-sm-left">
                         <div class="text-center mt-3">
-        <a href="http://13.51.239.115/admin/banner" class="btn btn-primary">Add Banner</a>
+        <a href="{{ route('admin.banner') }}" class="btn btn-primary">Add Banner</a>
     </div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <span class="fw-semibold d-block mb-1">Users  list(<small class="text-success fw-semibold">#</small>)</span>
-                                <a href="http://13.51.239.115/admin/users">View More</a>
+                                <a href="{{ route('users.index') }}">View More</a>
                             </div>
                         </div>
                     </div>
@@ -128,7 +128,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <span class="fw-semibold d-block mb-1">Set Fee (<small class="text-success fw-semibold">#</small>)</span>
-                                <a href="http://13.51.239.115/admin/fee">View More</a>
+                                <a href="{{ route('fee.form') }}">View More</a>
                             </div>
                         </div>
                     </div>

@@ -81,7 +81,7 @@
     <div class="container h-100 d-flex align-items-center justify-content-between">
         <!-- Back Button-->
         <div class="back-button me-2">
-            <a href="http://13.51.239.115/account/dashboard" class="btn btn-link" style="color: black;">
+            <a href="{{ route('account.dashboard') }}" class="btn btn-link" style="color: black;">
                 <i class="ti ti-arrow-left"></i> Back
             </a>
         </div>

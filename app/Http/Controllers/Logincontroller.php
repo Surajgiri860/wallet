@@ -15,12 +15,14 @@ class Logincontroller extends Controller
     //this method will show login page for customer
 
     public function index(){
+        //die('index function');
         return view ('login');
     }
 
     //this method will authenticate user
 
     public function authenticate(Request $request) {
+       // die('authenticate');
         $validation = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
             'password' => 'required',
@@ -29,7 +31,7 @@ class Logincontroller extends Controller
     
         if ($validation->passes()) {
                 if(Auth::attempt(['email' => $request->email,'password' => $request->password,])){
-                    return redirect('account/dashboard');
+                    return redirect()->route('account.dashboard');
                 }else {
                     return redirect()->route('account.login')->with('error','Either email or password is incorrect.');
 
@@ -75,7 +77,9 @@ class Logincontroller extends Controller
         }
     public function logout(){
         Auth::logout();
-        return redirect()->route('account.login');
+
+        return view ('welcome');
+       // return redirect()->route('/');
     }
     
 }
