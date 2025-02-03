@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\RequestTransaction; // Import the model
 use App\Models\User;
 use App\Models\config;
+use App\Models\PaymentDetail;
 
 
 
@@ -147,7 +148,39 @@ class DashboardController extends Controller
         return redirect()->route('withdraw.page')->with('success', 'Withdrawal request submitted successfully.');
     }
 
+
     
+
+        public function savePaymentDetails(Request $request)
+        {
+            $request->validate([
+                'account_number' => 'required',
+                'ifsc_code' => 'required',
+                'bank_name' => 'required',
+                'upi_id' => 'nullable'
+            ]);
+
+            PaymentDetail::updateOrCreate(
+                ['user_id' => auth()->id()],
+                [
+                    'account_number' => $request->account_number,
+                    'ifsc_code' => $request->ifsc_code,
+                    'bank_name' => $request->bank_name,
+                    'upi_id' => $request->upi_id
+                ]
+            );
+
+            return redirect()->back()->with('success', 'Payment details updated successfully!');
+        }
+
+        public function showPaymentForm()
+        {
+            $user = auth()->user(); // लॉगिन यूज़र को लो
+            $paymentDetails = PaymentDetail::where('user_id', $user->id)->first(); // यूज़र की Payment Details निकालो
+        
+            return view('payment', compact('paymentDetails'));
+        }
+        
     
    
 }

@@ -40,7 +40,10 @@ Route::group(['prefix' =>'account'],function(){
         Route::get('/withdraw', [DashboardController::class, 'showWithdrawPage'])->name('withdraw.page');
         Route::post('/withdraw-request', [DashboardController::class, 'storeWithdrawRequest'])->name('withdraw.request');
 
-        
+        //Route::get('/user/payment-details', [DashboardController::class, 'paymentDetailsForm'])->name('user.paymentDetails');
+        Route::post('/user/save-payment-details', [DashboardController::class, 'savePaymentDetails'])->name('user.savePaymentDetails');
+        Route::get('/user/payment', [DashboardController::class, 'showPaymentForm'])->name('user.payment');
+
        // Route::get('/dashboard', [UserController::class, 'dashboard']);
 
         
@@ -75,7 +78,10 @@ Route::group(['prefix' =>'admin'],function(){
 
         Route::get('/banner', [AdminDashboardController::class, 'banner'])->name('admin.banner');
         Route::post('/banner/update', [AdminDashboardController::class, 'update'])->name('admin.banner.update');
-    
+        
+        Route::get('/admin/payment-details/{user_id}', [AdminDashboardController::class, 'viewPaymentDetails'])->name('admin.viewPaymentDetails');
+
+
     });
     });
 

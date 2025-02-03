@@ -178,13 +178,16 @@
                     </div>
 
 
-        <div class="containers">
-            <h2>Personal Details</h2>
-            <p class="user-info"><strong>Name:</strong> {{ $user->name }}</p>
-            <p class="user-info"><strong>Email:</strong> {{ $user->email }}</p>
-            <p class="mb-2"><strong>Registered Since:</strong> {{ Auth::user()->created_at->format('M d, Y') }}</p>
-            <p class="balance"><strong>Balance:</strong> ${{ $user->total_bal }}</p>
-        </div>
+                    <div class="containers">
+                    <h2>Personal Details</h2>
+                    <p class="user-info"><strong>Name:</strong> {{ $user->name }}</p>
+                    <p class="user-info"><strong>Email:</strong> {{ $user->email }}</p>
+                    <p class="mb-2"><strong>Registered Since:</strong> {{ Auth::user()->created_at->format('M d, Y') }}</p>
+                    <p class="balance"><strong>Balance:</strong> ₹{{ $user->total_bal }}</p>
+
+                        <!-- Payment Details Page Button -->
+                        <a href="{{ route('user.payment') }}" class="btn btn-primary mt-3">Add Payment Details</a>
+                    </div>
 
         <div class="container mt-4">
             <div class="row g-3">

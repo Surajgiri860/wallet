@@ -97,6 +97,33 @@
                 text-align: center;
             }
         }
+        /* Custom button styles */
+.btn-custom {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-custom:hover {
+    background: linear-gradient(135deg, #0056b3, #003d80);
+    transform: scale(1.05);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-custom:active {
+    transform: scale(0.98);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
     </style>
 </head>
 <body>
@@ -147,22 +174,27 @@
                                 </span>
                             </td>
                             <td>
-                                @if($request->request_status === 'pending')
-                                    <!-- Approve Button -->
-                                    <form action="{{ route('admin.approveRequest', $request->id) }}" method="POST" style="display:inline-block;">
-                                        @csrf
-                                        <button type="submit" class="btn btn-success btn-sm">Approve</button>
-                                    </form>
+                                    @if($request->request_status === 'pending')
+                                        <!-- Approve Button -->
+                                        <form action="{{ route('admin.approveRequest', $request->id) }}" method="POST" style="display:inline-block;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                                        </form>
 
-                                    <!-- Reject Button -->
-                                    <form action="{{ route('admin.rejectRequest', $request->id) }}" method="POST" style="display:inline-block;">
-                                        @csrf
-                                        <button type="submit" class="btn btn-danger btn-sm">Reject</button>
-                                    </form>
-                                @else
-                                    <span class="badge bg-secondary">{{ ucfirst($request->request_status) }}</span>
-                                @endif
-                            </td>
+                                        <!-- Reject Button -->
+                                        <form action="{{ route('admin.rejectRequest', $request->id) }}" method="POST" style="display:inline-block;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                                        </form>
+                                    @else
+                                        <span class="badge bg-secondary">{{ ucfirst($request->request_status) }}</span>
+                                    @endif
+
+                                    <!-- View Payment Details Button -->
+                                    <a href="{{ route('admin.viewPaymentDetails', $request->user_id) }}" class="btn-custom">View Details</a>
+
+                                </td>
+
                         </tr>
                         @endforeach
                     </tbody>

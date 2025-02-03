@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\RequestTransaction; 
 use App\Models\config;
 use App\Models\Banner;
+use App\Models\PaymentDetail;
 
 
 
@@ -183,6 +184,18 @@ class DashboardController extends Controller
 
                 return back()->with('success', 'Banner updated successfully!');
             }
+
+            public function viewPaymentDetails($user_id)
+                {
+                    $user = User::find($user_id);
+                    $paymentDetails = PaymentDetail::where('user_id', $user_id)->first();
+
+                    if (!$paymentDetails) {
+                        return redirect()->back()->with('error', 'No payment details found.');
+                    }
+
+                    return view('admin.payment_details', compact('user', 'paymentDetails'));
+                }
 
           
                 
