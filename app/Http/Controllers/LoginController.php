@@ -22,28 +22,33 @@ class LoginController extends Controller
     //this method will authenticate user
 
     public function authenticate(Request $request) {
-       // die('authenticate');
         $validation = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
             'password' => 'required',
-            
         ]);
     
-        if ($validation->passes()) {
-                if(Auth::attempt(['email' => $request->email,'password' => $request->password,])){
-                    return redirect()->route('account.dashboard');
-                }else {
-                    return redirect()->route('account.login')->with('error','Either email or password is incorrect.');
-
-                }
-
-            // Proceed with authentication logic (e.g., checking credentials)
-        } else {
+        if ($validation->fails()) {
             return redirect()->route('account.login')
                 ->withInput()
                 ->withErrors($validation);
         }
+    
+        // यूज़र को ईमेल के आधार पर खोजें
+        $user = User::where('email', $request->email)->first();
+    
+        // अगर यूज़र "blocked" है, तो वॉर्निंग मैसेज दिखाएं
+        if ($user->status === 'blocked') {
+            return redirect()->route('account.login')->with('error', 'Your account is blocked. Please contact support.');
+        }
+    
+        // अगर अकाउंट ब्लॉक नहीं है, तो लॉगिन ट्राई करें
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect()->route('account.dashboard');
+        } else {
+            return redirect()->route('account.login')->with('error', 'Either email or password is incorrect.');
+        }
     }
+    
 
     //this page are showing register
     

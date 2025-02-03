@@ -86,31 +86,39 @@
                                 <h4 class="animate__animated animate__fadeInDown">Login Here</h4>
                             </div>
                             <form action="{{ route('account.authenticate') }}" method="post">
-                                @csrf
-                                <div class="row gy-3">
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <input type="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="name@example.com">
-                                            <label for="email">Email Address</label>
-                                            @error('email')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Password">
-                                            <label for="password">Password</label>
-                                            @error('password')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Log in now</button>
-                                    </div>
-                                </div>
-                            </form>
+    @csrf
+    
+    @if(session('error'))
+        <div class="alert alert-danger text-center">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <div class="row gy-3">
+        <div class="col-12">
+            <div class="form-floating">
+                <input type="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="name@example.com">
+                <label for="email">Email Address</label>
+                @error('email')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-floating">
+                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Password">
+                <label for="password">Password</label>
+                @error('password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary w-100 py-3" type="submit">Log in now</button>
+        </div>
+    </div>
+</form>
+
                             <hr>
                             <div class="text-center">
                                 <p class="mb-0">Don't have an account?</p>

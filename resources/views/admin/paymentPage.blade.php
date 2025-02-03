@@ -37,7 +37,7 @@
                 <thead class="table-dark">
     <tr>
         <th>ID</th>
-        <th>User ID</th>
+        <th>Name</th>
         <th>Request Amount</th>
         <th>Type</th>
         <th>UTR Number</th>
@@ -52,7 +52,7 @@
             @if($request->type == 1) <!-- Only show deposit entries -->
                 <tr>
                     <td>{{ $request->id }}</td>
-                    <td>{{ $request->user_id }}</td>
+                    <td>{{ $request->user->name }}</td>
                     <td>{{ number_format($request->request_amount, 2) }}</td>
                     <td>Deposit</td>
                     <td>{{ $request->utr_number }}</td>

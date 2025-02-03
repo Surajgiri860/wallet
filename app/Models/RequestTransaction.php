@@ -25,5 +25,11 @@ class RequestTransaction extends Model
     public $timestamps = true;
 
     // Additional methods or relationships can be added here
+
+            public function user()
+        {
+            return $this->belongsTo(User::class, 'user_id'); 
+        }
+
 }
 

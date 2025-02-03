@@ -37,13 +37,13 @@ class DashboardController extends Controller
     {
         $user = $this->service->select();
         $view = 'Admin.paymentPage';
-
-        // Fetch all payment requests from the 'Request_transaction' table
-        $paymentRequests = DB::table('Request_transaction')->get();
-
-        // Pass the data to the view
+    
+        // Fetch payment requests with user data
+        $paymentRequests = RequestTransaction::with('user')->get();
+    
         return view('admin.paymentPage', compact('view', 'user', 'paymentRequests'));
     }
+    
 
     // Approve Withdraw or Deposit Requests
     public function approveRequest($id)
@@ -106,15 +106,15 @@ class DashboardController extends Controller
 
     // Fetch only withdraw requests
     public function withdrawRequests()
-            {
-                
-                // Fetch withdraw requests from the RequestTransaction model
-                $withdrawRequests = RequestTransaction::where('type', 2)->get();  // 2 = Withdraw requests
-
-                
-                // Return the view with data
-                return view('admin.withdrawRequests', compact('withdrawRequests'));
-            }
+    {
+        // Withdraw requests के साथ user डेटा लोड करें
+        $withdrawRequests = RequestTransaction::where('type', 2)
+                              ->with('user')  // यह user की जानकारी भी लाएगा
+                              ->get(); 
+    
+        return view('admin.withdrawRequests', compact('withdrawRequests'));
+    }
+    
 
             public function userlist()
             {

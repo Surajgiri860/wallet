@@ -156,7 +156,7 @@
                     <thead class="table-dark">
                         <tr>
                             <th>ID</th>
-                            <th>User ID</th>
+                            <th>Name</th>
                             <th>Amount</th>
                             <th>Status</th>
                             <th>Actions</th>
@@ -166,7 +166,8 @@
                         @foreach($withdrawRequests as $request)
                         <tr>
                             <td>{{ $request->id }}</td>
-                            <td>{{ $request->user_id }}</td>
+                            <td>{{ $request->user->name }}</td>
+
                             <td>{{ number_format($request->request_amount, 2) }}</td>
                             <td>
                                 <span class="badge {{ $request->request_status == 'pending' ? 'bg-warning' : 'bg-success' }} text-dark">

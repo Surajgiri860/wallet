@@ -328,7 +328,7 @@
                     <div class="contact-card">
                         <p>📧 Email: support@truewallet.com</p>
                         <p>📞 Toll-Free: 1800 TRUE WALLET (1800 8783 92553)</p>
-                        <p>🏢 Headquarters: Cyber Hub, DLF Cyber City, Gurugram, India</p>
+                        <!-- <p>🏢 Headquarters: Cyber Hub, DLF Cyber City, Gurugram, India</p> -->
                     </div>
                 </div>
             </div>
@@ -344,9 +344,9 @@
                 </div>
                 <div class="col-md-6 text-center text-md-end">
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook fa-lg"></i></a>
+                    <!-- <a href="#"><i class="fab fa-facebook fa-lg"></i></a>
                     <a href="#"><i class="fab fa-twitter fa-lg"></i></a>
-                    <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#"><i class="fab fa-instagram fa-lg"></i></a> -->
                 </div>
                     <p class="mt-3">&copy; 2025 True Wallet. All Rights Reserved.</p>
                 </div>
