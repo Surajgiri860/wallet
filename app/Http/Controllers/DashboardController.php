@@ -95,7 +95,7 @@ class DashboardController extends Controller
             }
         
             // Insert data into the request_transaction table
-            DB::table('request_transaction')->insert([
+            DB::table('Request_transaction')->insert([
                 'user_id' => $request->user_id,
                 'request_amount' => $request->request_amount,
                 'type' => $request->type,
