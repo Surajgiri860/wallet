@@ -113,6 +113,7 @@
                            <ul class="dropdown-menu border-0 shadow">
                               <li><a class="dropdown-item" href="{{ route('account.deposit') }}">Deposit ></a></li>
                               <li><a class="dropdown-item" href="{{ route('withdraw.page') }}">Withdraw ></a></li>
+                              <li><a class="dropdown-item" href="{{ route('user.changePassword') }}">Change Password ></a></li>
                               <li><a class="dropdown-item" href="{{ route('account.logout') }}">Logout</a></li>
                            </ul>
                         </li>

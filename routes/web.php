@@ -47,6 +47,9 @@ Route::group(['prefix' =>'account'],function(){
 
        // Route::get('/dashboard', [UserController::class, 'dashboard']);
 
+        Route::get('/change-password', [DashboardController::class, 'showChangePasswordForm'])->name('user.changePassword');
+         Route::post('/update-password', [DashboardController::class, 'updatePassword'])->name('user.updatePassword');
+
         
            });
 
@@ -97,19 +100,12 @@ Route::group(['prefix' =>'admin'],function(){
         Route::get('/unblock-user/{id}', [AdminDashboardController::class, 'unblockUser'])->name('admin.unblockUser');
         Route::get('/delete-user/{id}', [AdminDashboardController::class, 'deleteUser'])->name('admin.deleteUser');
 
+        Route::get('/change-password', [AdminDashboardController::class, 'showChangePasswordForm'])->name('admin.changePassword');
+        Route::post('/update-password', [AdminDashboardController::class, 'updatePassword'])->name('admin.updatePassword');
 
-       
-            // Show all users
-                Route::get('/users', [AdminDashboardController::class, 'showUsers'])->name('admin.users');
 
-                // Show password change form for a specific user
-                Route::get('/change-password/{user}', [AdminDashboardController::class, 'showChangePasswordForm'])->name('admin.showChangePasswordForm');
 
-                // Update the password for a specific user
-                Route::post('/update-password/{user}', [AdminDashboardController::class, 'updatePassword'])->name('admin.updatePassword');
-
-   
-        });
+         });
     });
 
 

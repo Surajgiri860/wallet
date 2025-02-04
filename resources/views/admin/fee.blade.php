@@ -25,7 +25,7 @@
     </style>
 </head>
 <body>
-    <a href="javascript:history.back()" class="btn btn-secondary back-btn">&larr; Back</a>
+    <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary back-btn">&larr; Back</a>
 
     <div class="card p-4" style="width: 100%; max-width: 400px;">
         <h2 class="text-center mb-4">Manage Deposit Fee</h2>

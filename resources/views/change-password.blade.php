@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Admin Password</title>
+    <title>Change User Password</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -18,7 +18,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(135deg,rgb(29, 120, 206),  #3f37c9);
             padding: 1rem;
             position: relative;
             margin-bottom: 2rem;
@@ -70,8 +70,8 @@
         }
 
         .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+            border-color:rgb(43, 81, 180);
+            box-shadow: 0 0 0 0.2rem rgba(38, 38, 245, 0.25);
         }
 
         .form-label {
@@ -81,7 +81,7 @@
         }
 
         .btn-primary {
-            background-color: var(--primary-color);
+            background-color: #2a9d8f;
             border: none;
             padding: 0.7rem 2rem;
             border-radius: 7px;
@@ -90,7 +90,7 @@
         }
 
         .btn-primary:hover {
-            background-color: var(--secondary-color);
+            background-color:rgb(16, 66, 202);
             transform: translateY(-2px);
         }
 
@@ -126,7 +126,7 @@
         }
 
         .toggle-password:hover {
-            color: var(--primary-color);
+            color: #2a9d8f;
         }
 
         @keyframes fadeIn {
@@ -155,13 +155,13 @@
 </head>
 <body>
     <div class="header">
-        <a href="{{ route('admin.dashboard') }}" class="back-button">
+        <a href="{{ route('account.dashboard')}}" class="back-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
             Back
         </a>
-        <h2>Change Admin Password</h2>
+        <h2>Change User Password</h2>
     </div>
 
     <div class="container">
@@ -184,7 +184,7 @@
         @endif
 
         <div class="password-card fade-in">
-            <form action="{{ route('admin.updatePassword') }}" method="POST">
+            <form action="{{ route('user.updatePassword') }}" method="POST">
                 @csrf
                 @method('POST')
 

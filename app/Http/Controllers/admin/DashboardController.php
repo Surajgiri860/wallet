@@ -280,49 +280,29 @@ class DashboardController extends Controller
                         return redirect()->route('admin.paymentSettings')->with('error', 'Payment method not found.');
                     }
 
-    
-
-
-
-
-    public function showUsers()
-    {
-        // Fetch all users
-        $users = User::all();
-
-        return view('admin.users', compact('users'));
-    }
-
-    // Method to show the form for changing the password of a specific user
-    public function showChangePasswordForm($userId)
-    {
-        $user = User::find($userId);
-
-        if (!$user) {
-            return redirect()->route('admin.users')->withErrors('User not found.');
-        }
-
-        return view('admin.change-password', compact('user'));
-    }
-
-    // Update the password
-    public function updatePassword(Request $request, $userId)
-    {
-        $request->validate([
-            'password' => 'required|min:8|confirmed',  // Check password and confirmation
-        ]);
-
-        // Fetch user and update the password
-        $user = User::find($userId);
-        if ($user) {
-            $user->password = bcrypt($request->password);
-            $user->save();
-
-            return redirect()->route('admin.users')->with('success', 'Password updated successfully.');
-        }
-
-        return back()->withErrors('User not found.');
-    }
+                    public function showChangePasswordForm()
+                    {
+                        return view('admin.change-password');
+                    }
+                
+                    public function updatePassword(Request $request)
+                    {
+                        $request->validate([
+                            'current_password' => 'required',
+                            'new_password' => 'required|min:8|confirmed',
+                        ]);
+                
+                        $admin = Auth::user(); // लॉग इन हुआ Admin 
+                
+                        if (!Hash::check($request->current_password, $admin->password)) {
+                            return back()->withErrors(['current_password' => 'Current password is incorrect']);
+                        }
+                
+                        $admin->password = Hash::make($request->new_password);
+                        $admin->save();
+                
+                        return back()->with('success', 'Password changed successfully.');
+                    }
 
 
                 }

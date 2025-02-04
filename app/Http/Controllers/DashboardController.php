@@ -13,7 +13,7 @@ use App\Models\User;
 use App\Models\config;
 use App\Models\PaymentDetail;
 use App\Models\AdminPaymentDetail;
-
+use Illuminate\Support\Facades\Hash;
 
 
 class DashboardController extends Controller
@@ -200,5 +200,29 @@ class DashboardController extends Controller
             return view('deposit', compact('paymentDetails'));
         }
     
-   
+        public function showChangePasswordForm()
+    {
+        return view('change-password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+
+        $user = Auth::user(); // लॉग इन हुआ User
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Current password is incorrect']);
+        }
+
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return back()->with('success', 'Password changed successfully.');
+    }
+
+
 }

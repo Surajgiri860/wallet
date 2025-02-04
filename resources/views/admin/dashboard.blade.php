@@ -85,7 +85,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#!" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hello, {{ Auth::guard('admin')->user()->name }}</a>
                                 <ul class="dropdown-menu border-0 shadow bsb-zoomIn" aria-labelledby="accountDropdown"> 
-                                                             
+                                <li><a class="dropdown-item" href="{{ route('admin.changePassword') }}">Change Password ></a></li>                         
                                     <li><a class="dropdown-item" href="{{ route('admin.logout') }}">Logout</a></li>
                                     
                                 </ul>
@@ -167,7 +167,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <span class="fw-semibold d-block mb-1">Change Password (<small class="text-success fw-semibold">#</small>)</span>
-                                <a href="{{ route('admin.users') }}">View More</a>
+                                <a href="{{ '#' }}">View More</a>
                             </div>
                         </div>
                     </div>
