@@ -133,6 +133,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
 
@@ -159,6 +160,14 @@
                             <div class="card-body">
                                 <span class="fw-semibold d-block mb-1">Payment Settings (<small class="text-success fw-semibold">View</small>)</span>
                                 <a href="{{ route('admin.paymentSettings') }}">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-6 mb-6" style="margin-bottom: 10px;">
+                        <div class="card">
+                            <div class="card-body">
+                                <span class="fw-semibold d-block mb-1">Change Password (<small class="text-success fw-semibold">#</small>)</span>
+                                <a href="{{ route('admin.users') }}">View More</a>
                             </div>
                         </div>
                     </div>

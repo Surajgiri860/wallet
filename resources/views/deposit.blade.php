@@ -96,21 +96,24 @@
         <p class="text-center">Scan the provided QR code to make a payment and fill in the required details.</p>
 
         @if($paymentDetails)
-            <div class="qr-section">
-                @if($paymentDetails->qrpic)
-                    <img src="{{ asset('storage/' . $paymentDetails->qrpic) }}" alt="QR Code" class="img-fluid mb-3">
-                @endif
-
-                <div class="payment-details">
-                    <h5>UPI ID: {{ $paymentDetails->upi_id }}</h5>
-                    <h5>Bank Name: {{ $paymentDetails->bank_name }}</h5>
-                    <h5>Account Number: {{ $paymentDetails->account_number }}</h5>
-                    <h5>IFSC Code: {{ $paymentDetails->ifsc_code }}</h5>
-                </div>
-            </div>
-        @else
-            <p class="alert alert-warning text-center">No payment details available. Please check back later.</p>
+    <div class="payment-card">
+        @if($paymentDetails->qrpic)
+            <img src="{{ asset('storage/' . $paymentDetails->qrpic) }}" alt="QR Code" class="img-fluid mb-3">
         @endif
+
+        <div class="payment-details">
+            <h5>UPI ID: {{ $paymentDetails->upi_id }}</h5>
+            <h5>Bank Name: {{ $paymentDetails->bank_name }}</h5>
+            <h5>Account Number: {{ $paymentDetails->account_number }}</h5>
+            <h5>IFSC Code: {{ $paymentDetails->ifsc_code }}</h5>
+        </div>
+    </div>
+@else
+    <p>No payment methods available.</p>
+@endif
+
+
+
 
         @php
             $depositFee = \App\Models\Config::where('key', 'deposit_fee')->value('value') ?? 0;

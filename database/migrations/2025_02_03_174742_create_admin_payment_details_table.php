@@ -9,11 +9,11 @@ return new class extends Migration {
     {
         Schema::create('admin_payment_details', function (Blueprint $table) {
             $table->id();
+            $table->string('upi_id');
+            $table->string('bank_name');
+            $table->string('account_number');
+            $table->string('ifsc_code');
             $table->string('qrpic')->nullable();
-            $table->string('upi_id')->nullable();
-            $table->string('bank_name')->nullable();
-            $table->string('account_number')->nullable();
-            $table->string('ifsc_code')->nullable();
             $table->timestamps();
         });
     }

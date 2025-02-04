@@ -72,7 +72,7 @@ Route::group(['prefix' =>'admin'],function(){
         Route::get('/withdraw-requests', [AdminDashboardController::class, 'withdrawRequests'])->name('admin.withdrawRequests');
         Route::post('/approve-request/{id}', [AdminDashboardController::class, 'approveRequest'])->name('admin.approveRequest');
         Route::post('/reject-request/{id}', [AdminDashboardController::class, 'rejectRequest'])->name('admin.rejectRequest');
-        Route::get('/users', [AdminDashboardController::class, 'Userlist'])->name('users.index');
+        Route::get('/list', [AdminDashboardController::class, 'Userlist'])->name('users.index');
         Route::get('/request-transaction', [AdminDashboardController::class, 'showRequestTransaction']);
         Route::get('/fee', [AdminDashboardController::class, 'showFeeForm'])->name('fee.form');
         Route::post('/update-fee', [AdminDashboardController::class, 'updateFee'])->name('update.fee');
@@ -90,12 +90,26 @@ Route::group(['prefix' =>'admin'],function(){
 
         // Save Payment Details
         Route::post('/save-payment-details', [AdminDashboardController::class, 'savePaymentDetails'])->name('admin.savePaymentDetails');
+        Route::delete('/payment/delete/{id}', [AdminDashboardController::class, 'deletePaymentDetails'])->name('admin.deletePaymentDetails');
+
 
         Route::get('/block-user/{id}', [AdminDashboardController::class, 'blockUser'])->name('admin.blockUser');
         Route::get('/unblock-user/{id}', [AdminDashboardController::class, 'unblockUser'])->name('admin.unblockUser');
         Route::get('/delete-user/{id}', [AdminDashboardController::class, 'deleteUser'])->name('admin.deleteUser');
 
-    });
+
+       
+            // Show all users
+                Route::get('/users', [AdminDashboardController::class, 'showUsers'])->name('admin.users');
+
+                // Show password change form for a specific user
+                Route::get('/change-password/{user}', [AdminDashboardController::class, 'showChangePasswordForm'])->name('admin.showChangePasswordForm');
+
+                // Update the password for a specific user
+                Route::post('/update-password/{user}', [AdminDashboardController::class, 'updatePassword'])->name('admin.updatePassword');
+
+   
+        });
     });
 
 

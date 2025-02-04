@@ -31,52 +31,57 @@ class DashboardController extends Controller
     }
 
     public function deposit(Request $request)
-    {
-        $user = Auth::user(); 
+{
+    $user = Auth::user(); 
     
-        if ($user === null) {
-            $view = "Templates.Welcome";
-            return view('Front', compact('view'));
-        }
-    
-        // Fetch deposit fee percentage
-        $feePercentage = config::where('key', 'deposit_fee')->value('value') ?? 0;  
-    
-        if ($request->isMethod('post')) {
-            $request->validate([
-                'amount' => 'required|numeric|min:1'
-            ]);
-    
-            $amount = $request->input('amount');
-            $feeAmount = ($amount * $feePercentage) / 100;
-            $netAmount = $amount - $feeAmount;
-    
-            $wallet = Wallet::firstOrCreate(['user_id' => $user->id]);
-            $wallet->balance += $netAmount;
-            $wallet->save();
-    
-            Transaction::create([
-                'user_id' => $user->id,
-                'type' => 'deposit',
-                'amount' => $amount,
-                'fee' => $feeAmount,
-                'final_amount' => $netAmount,
-                'status' => 'completed'
-            ]);
-    
-            return back()->with('success', "Deposit successful! ₹$netAmount added after ₹$feeAmount fee deduction.");
-        }
-    
-        // Wallet balance and user requests
-        $wallet = Wallet::where('user_id', $user->id)->first();
-        $requests = DB::table('Request_transaction')->where('user_id', $user->id)->get();
-    
-        // **Admin द्वारा डाले गए पेमेंट डिटेल्स लाना (Correct Model Used)**
-        $paymentDetails = AdminPaymentDetail::latest()->first();  
-    
-        $view = 'Templates.deposit';
-        return view('deposit', compact('view', 'user', 'wallet', 'requests', 'feePercentage', 'paymentDetails'));
+    if ($user === null) {
+        $view = "Templates.Welcome";
+        return view('Front', compact('view'));
     }
+
+    // Fetch deposit fee percentage
+    $feePercentage = config::where('key', 'deposit_fee')->value('value') ?? 0;  
+
+    if ($request->isMethod('post')) {
+        $request->validate([
+            'amount' => 'required|numeric|min:1'
+        ]);
+
+        $amount = $request->input('amount');
+        $feeAmount = ($amount * $feePercentage) / 100;
+        $netAmount = $amount - $feeAmount;
+
+        $wallet = Wallet::firstOrCreate(['user_id' => $user->id]);
+        $wallet->balance += $netAmount;
+        $wallet->save();
+
+        Transaction::create([
+            'user_id' => $user->id,
+            'type' => 'deposit',
+            'amount' => $amount,
+            'fee' => $feeAmount,
+            'final_amount' => $netAmount,
+            'status' => 'completed'
+        ]);
+
+        return back()->with('success', "Deposit successful! ₹$netAmount added after ₹$feeAmount fee deduction.");
+    }
+
+    // Wallet balance and user requests
+    $wallet = Wallet::where('user_id', $user->id)->first();
+    $requests = DB::table('Request_transaction')->where('user_id', $user->id)->get();
+
+    // Fetch all admin payment methods (Updated logic)
+    $paymentDetails = AdminPaymentDetail::all();  // Get all payment methods
+    $paymentDetails = AdminPaymentDetail::latest()->first();  // Fetch the latest payment method
+    $paymentDetails = AdminPaymentDetail::inRandomOrder()->first();  // Fetch a random payment method
+
+
+    // Send data to the view
+    $view = 'Templates.deposit';
+    return view('deposit', compact('view', 'user', 'wallet', 'requests', 'feePercentage', 'paymentDetails'));
+}
+
     
     
     

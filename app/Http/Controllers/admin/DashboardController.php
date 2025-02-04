@@ -11,6 +11,8 @@ use App\Models\config;
 use App\Models\Banner;
 use App\Models\PaymentDetail;
 use App\Models\AdminPaymentDetail;
+use Illuminate\Support\Facades\Hash;
+
 
 
 
@@ -201,43 +203,40 @@ class DashboardController extends Controller
                     return view('admin.payment_details', compact('user', 'paymentDetails'));
                 }
 
+                // Show Payment Settings Page
                 public function showAdminPaymentSettings()
                 {
-                    // Admin द्वारा डाले गए Payment Details को लाना
-                    $paymentDetails = AdminPaymentDetail::latest()->first();
-            
+                    $paymentDetails = AdminPaymentDetail::all(); // Get all accounts
                     return view('admin.payment_settings', compact('paymentDetails'));
                 }
-            
+
+                // Save Payment Details
                 public function savePaymentDetails(Request $request)
                 {
                     $request->validate([
-                        'upi_id' => 'required|string',
-                        'bank_name' => 'required|string',
-                        'account_number' => 'required|string',
-                        'ifsc_code' => 'required|string',
-                        'qrpic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+                        'upi_id' => 'required',
+                        'bank_name' => 'required',
+                        'account_number' => 'required',
+                        'ifsc_code' => 'required',
+                        'qrpic' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                     ]);
-            
-                    // पुराने डेटा को हटा दें और नया डेटा सेव करें
-                    AdminPaymentDetail::truncate();
-            
-                    $paymentDetails = new AdminPaymentDetail();
-                    $paymentDetails->upi_id = $request->upi_id;
-                    $paymentDetails->bank_name = $request->bank_name;
-                    $paymentDetails->account_number = $request->account_number;
-                    $paymentDetails->ifsc_code = $request->ifsc_code;
-            
-                    // QR Code Image अपलोड करना
+
+                    $paymentDetail = new AdminPaymentDetail();
+                    $paymentDetail->upi_id = $request->upi_id;
+                    $paymentDetail->bank_name = $request->bank_name;
+                    $paymentDetail->account_number = $request->account_number;
+                    $paymentDetail->ifsc_code = $request->ifsc_code;
+
                     if ($request->hasFile('qrpic')) {
-                        $filePath = $request->file('qrpic')->store('payment_qr_codes', 'public');
-                        $paymentDetails->qrpic = $filePath;
+                        $path = $request->file('qrpic')->store('payment_qr_codes', 'public');
+                        $paymentDetail->qrpic = $path;
                     }
-            
-                    $paymentDetails->save();
-            
-                    return redirect()->back()->with('success', 'Payment details updated successfully!');
+
+                    $paymentDetail->save();
+
+                    return redirect()->route('admin.paymentSettings')->with('success', 'Payment details saved successfully!');
                 }
+            
           
                 public function blockUser($id)
                     {
@@ -264,7 +263,66 @@ class DashboardController extends Controller
 
                         return back()->with('success', 'User has been deleted.');
                     }
+                    
+                    public function deletePaymentDetails($id)
+                    {
+                        $payment = AdminPaymentDetail::find($id);
+                        if ($payment) {
+                            // अगर QR Code Image सेव है तो डिलीट करें
+                            if ($payment->qrpic) {
+                                Storage::delete('public/' . $payment->qrpic);
+                            }
+
+                            $payment->delete();
+                            return redirect()->route('admin.paymentSettings')->with('success', 'Payment method deleted successfully.');
+                        }
+
+                        return redirect()->route('admin.paymentSettings')->with('error', 'Payment method not found.');
+                    }
+
+    
 
 
 
-}
+
+    public function showUsers()
+    {
+        // Fetch all users
+        $users = User::all();
+
+        return view('admin.users', compact('users'));
+    }
+
+    // Method to show the form for changing the password of a specific user
+    public function showChangePasswordForm($userId)
+    {
+        $user = User::find($userId);
+
+        if (!$user) {
+            return redirect()->route('admin.users')->withErrors('User not found.');
+        }
+
+        return view('admin.change-password', compact('user'));
+    }
+
+    // Update the password
+    public function updatePassword(Request $request, $userId)
+    {
+        $request->validate([
+            'password' => 'required|min:8|confirmed',  // Check password and confirmation
+        ]);
+
+        // Fetch user and update the password
+        $user = User::find($userId);
+        if ($user) {
+            $user->password = bcrypt($request->password);
+            $user->save();
+
+            return redirect()->route('admin.users')->with('success', 'Password updated successfully.');
+        }
+
+        return back()->withErrors('User not found.');
+    }
+
+
+                }
