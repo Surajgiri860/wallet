@@ -130,7 +130,9 @@
             @if($banner)
                <div class="banner-container">
                   @if($banner->image)
-                     <img src="{{ Storage::url($banner->image) }}" class="banner-image mb-2" alt="Banner Image">
+
+                 
+                     <img src=" {{ asset('storage/' . $banner->image) }}" class="banner-image mb-2" alt="Banner Image">
                   @endif
                   <div class="p-3">
                      @if($banner->title)
