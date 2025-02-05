@@ -22,7 +22,7 @@ class DashboardController extends Controller
     {
         //die('test');
       $user =   auth()->user(); // This assumes you are using Laravel's built-in authentication.
-
+      
     // Pass the user to the view
     return view('dashboard', compact('user'));
 

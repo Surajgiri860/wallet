@@ -69,7 +69,7 @@
 <body>
     <div class="container position-relative">
         <div class="payment-card">
-            <a href="{{ route('admin.dashboard') }}" class="back-btn">
+            <a href="{{ route('admin.withdrawRequests') }}" class="back-btn">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <h2 class="payment-title">{{ $user->name }}'s Payment Details</h2>

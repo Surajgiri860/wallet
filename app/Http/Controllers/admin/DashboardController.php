@@ -31,7 +31,8 @@ class DashboardController extends Controller
     // Admin Dashboard
     public function index()
     {
-        return view('admin.dashboard');
+        $totalBalance = User::sum('total_bal');
+        return view('admin.dashboard', compact('totalBalance'));
     }
 
     // Fetch and display all payment requests
