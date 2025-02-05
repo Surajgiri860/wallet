@@ -3,355 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to True Wallet - Your Digital Financial Partner</title>
+    <title>True Wallet - Smart Digital Payments</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            scroll-behavior: smooth;
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --text-dark: #1e293b;
+            --text-light: #f8fafc;
         }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
         .navbar {
-            background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
         }
+
         .navbar-brand {
-            font-size: 28px;
-            font-weight: bold;
-            background: linear-gradient(45deg, #fff, #e3f2fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            color: var(--primary-color) !important;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
+
         .nav-link {
-            font-size: 18px;
-            margin: 0 15px;
-            transition: all 0.3s ease;
+            color: var(--text-dark) !important;
+            font-weight: 500;
             position: relative;
+            padding: 0.5rem 1rem !important;
         }
+
         .nav-link::after {
             content: '';
             position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: white;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        .hero-section {
-            background-image: url('/api/placeholder/1920/1080');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, rgba(42, 42, 46, 0.9) 0%, rgba(13,71,161,0.7) 100%);
+            left: 1rem;
+            right: 1rem;
+            height: 2px;
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
-        element.style{
-            background color:  rgba(7, 9, 13, 0.7);
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
         }
-        .content {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 50px;
-            border-radius: 30px;
-            position: relative;
-            max-width: 900px;
-            text-align: center;
-            color: white;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .content h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            font-weight: bold;
-            /* text-shadow: 2px 2px 4px rgba(0,0,0,0.5); */
-            background: linear-gradient(45deg, #ffffff, #e3f2fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .content p {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-        .btn-custom {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            transition: all 0.4s ease;
-            margin: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+
+        .hero-section {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             position: relative;
             overflow: hidden;
         }
-        .btn-custom::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: all 0.6s;
-        }
-        .btn-custom:hover::before {
-            left: 100%;
-        }
-        .btn-custom:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-        }
-        .features-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e3f2fd 100%);
-        }
-        .feature-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            margin: 20px 0;
-            transition: all 0.4s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 1px solid rgba(0,0,0,0.05);
-            height: 100%;
-        }
-        .feature-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-        .feature-icon {
-            font-size: 56px;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, #1a237e, #0d47a1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .stats-section {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
             color: white;
         }
-        .stat-card {
-            text-align: center;
-            padding: 30px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .stat-card h4 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        .about-section {
-            padding: 100px 0;
-            background: #ffffff;
-        }
-        .about-card {
-            padding: 40px;
-            border-radius: 20px;
-            background: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin: 20px 0;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        .contact-section {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e3f2fd 100%);
-        }
-        .contact-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        .social-links a {
+
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.5rem 1.25rem;
+            border-radius: 2rem;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            margin: 0 10px;
-            transition: all 0.4s ease;
-            border: 1px solid rgba(255,255,255,0.2);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
         }
-        .social-links a:hover {
+
+        .feature-card {
             background: white;
-            color: #1a237e;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #e2e8f0;
+            height: 100%;
+        }
+
+        .feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 1rem;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .section-heading {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-color);
+            width: 60px;
+            margin: 0 auto;
+        }
+
+        .btn-custom {
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 6rem 0 2rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar remains same -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand animate__animated animate__fadeIn" href="#">True Wallet</a>
+            <a class="navbar-brand" href="#">
+                <!-- <i class="fas fa-wallet"></i> -->
+                TrueWallet
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('account.login') }}">Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="hero-section">
-        <div class="content animate__animated animate__fadeIn">
-            <h1>Welcome to True Wallet</h1>
-            <p>Revolutionizing Digital Payments Since 2025</p>
-            <p>Experience the future of seamless, secure, and smart financial transactions</p>
-            <div>
-                <a href="{{ route('account.login') }}" class="btn btn-primary btn-custom">Login</a>
-                <a href="{{ route('account.register') }}" class="btn btn-success btn-custom">Sign Up</a>
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content mx-auto">
+                <div class="hero-badge animate__animated animate__fadeIn">
+                    <span>New</span>
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInUp">
+                    Smart Digital Payments Made Simple
+                </h1>
+                <p class="lead mb-5 animate__animated animate__fadeInUp animate__delay-1s">
+                    Experience seamless transactions with India's most secure digital wallet
+                </p>
+                <div class="d-flex gap-3 justify-content-center animate__animated animate__fadeInUp animate__delay-2s">
+                    <a href="{{ route('account.register') }}" class="btn btn-primary btn-custom">
+                        Get Started
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#features" class="btn btn-outline-light btn-custom">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-5">
+        <div class="container py-5">
+            <h2 class="section-heading text-center mb-5">Why Choose TrueWallet?</h2>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt fa-2x"></i>
+                        </div>
+                        <h3>Military-Grade Security</h3>
+                        <p class="text-muted">Bank-level encryption and biometric authentication protect every transaction</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt fa-2x"></i>
+                        </div>
+                        <h3>Instant Transfers</h3>
+                        <p class="text-muted">Send and receive money instantly across any bank or UPI ID</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-percentage fa-2x"></i>
+                        </div>
+                        <h3>Low Fees</h3>
+                        <p class="text-muted">Only 5% transaction fees, no hidden charges</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-dark text-white py-5">
+    <div class="container py-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <img src="{{ asset('images/logo.png') }}" alt="Mobile App" class="img-fluid rounded-3" style="width: 250px; height: 250px;">
+            </div>
+            <div class="col-lg-6">
+                <h2 class="section-heading mb-4">All Your Financial Needs in One App</h2>
+                <ul class="list-unstyled">
+                    <li class="mb-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="icon-box bg-primary text-white">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="h5 mb-1"></h4>
+                                <p class="text-white mb-0">Instant</p> <!-- Text color white -->
+                            </div>
+                        </div>
+                    </li>
+                    <!-- Add more features -->
+                </ul>
             </div>
         </div>
     </div>
+</section>
 
-    <section id="features" class="features-section">
-        <div class="container">
-            <h2 class="text-center mb-5">Why Choose True Wallet?</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="feature-card text-center">
-                        <div class="feature-icon">🔒</div>
-                        <h3>Bank-Grade Security</h3>
-                        <p>End-to-end encryption and multi-factor authentication to keep your money safe</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feature-card text-center">
-                        <div class="feature-icon">⚡</div>
-                        <h3>Lightning Fast Transfers</h3>
-                        <p>Instant money transfers across banks, wallets, and UPI with zero waiting time</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                <div class="feature-card text-center">
-                    <div class="feature-icon">💰</div>
-                    <h3>5% Deposit Fees</h3>
-                    <p>Add money to your wallet instantly with 5% deposit fees. Direct bank transfers, UPI, and cards accepted with no additional charges.</p>
-                </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section class="stats-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="stat-card">
-                        <h4>10M+</h4>
-                        <p>Happy Users</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="stat-card">
-                        <h4>₹50B+</h4>
-                        <p>Transaction Value</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="stat-card">
-                        <h4>99.9%</h4>
-                        <p>Success Rate</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <div class="about-card text-center">
-                        <h2 class="mb-4">About True Wallet</h2>
-                        <p class="lead mb-4">Established in 2020, True Wallet has rapidly emerged as India's most trusted digital payment platform. Our journey began with a simple mission: to make digital payments accessible, secure, and rewarding for everyone.</p>
-                        <p class="mb-4">True Wallet is built on three core principles:</p>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h5>Innovation</h5>
-                                <p>Leveraging cutting-edge technology to provide the best payment solutions</p>
-                            </div>
-                            <div class="col-md-4">
-                                <h5>Security</h5>
-                                <p>Implementing military-grade encryption to protect your transactions</p>
-                            </div>
-                            <div class="col-md-4">
-                                <h5>Customer First</h5>
-                                <p>24/7 customer support and continuous service improvements</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact-section">
-        <div class="container text-center">
-            <h2 class="mb-4">Get in Touch</h2>
-            <p class="lead mb-4">Our dedicated support team is available 24/7 to assist you</p>
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="contact-card">
-                        <p>📧 Email: support@truewallet.com</p>
-                        <p>📞 Toll-Free: 1800 TRUE WALLET (1800 8783 92553)</p>
-                        <!-- <p>🏢 Headquarters: Cyber Hub, DLF Cyber City, Gurugram, India</p> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 text-center text-md-start">
-                    <h4>True Wallet</h4>
-                    <p>Your digital future, our responsibility</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                <div class="social-links">
-                    <!-- <a href="#"><i class="fab fa-facebook fa-lg"></i></a>
-                    <a href="#"><i class="fab fa-twitter fa-lg"></i></a>
-                    <a href="#"><i class="fab fa-instagram fa-lg"></i></a> -->
-                </div>
-                    <p class="mt-3">&copy; 2025 True Wallet. All Rights Reserved.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add smooth scroll and intersection observer for animations
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
