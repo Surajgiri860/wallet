@@ -121,13 +121,16 @@ class DashboardController extends Controller
     }
     
 
-            public function userlist()
-            {
-                // Ensure 'id' is also selected
-                $users = User::select('id', 'name', 'email', 'total_bal', 'status', 'created_at')->get();
-            
-                return view('admin.userlist', compact('users'));
-            }
+    public function userlist()
+    {
+        // Sirf 'customer' role wale users ko select karein
+        $users = User::select('id', 'name', 'email', 'total_bal', 'status', 'created_at')
+                     ->where('role', 'customer') // Admin users exclude
+                     ->get();
+    
+        return view('admin.userlist', compact('users'));
+    }
+    
             
 
 
