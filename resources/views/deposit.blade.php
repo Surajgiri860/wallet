@@ -95,22 +95,25 @@
 
         <p class="text-center">Scan the provided QR code to make a payment and fill in the required details.</p>
 
-        @if($paymentDetails)
-    <div class="payment-card">
-        @if($paymentDetails->qrpic)
-            <img src="{{ asset('storage/' . $paymentDetails->qrpic) }}" alt="QR Code" class="img-fluid mb-3">
-        @endif
+        @if($paymentDetails->count() > 0)
+    @foreach($paymentDetails as $payment)
+        <div class="payment-card mb-4">
+            @if($payment->qrpic)
+                <img src="{{ asset('storage/' . $payment->qrpic) }}" alt="QR Code" class="img-fluid mb-3">
+            @endif
 
-        <div class="payment-details">
-            <h5>UPI ID: {{ $paymentDetails->upi_id }}</h5>
-            <h5>Bank Name: {{ $paymentDetails->bank_name }}</h5>
-            <h5>Account Number: {{ $paymentDetails->account_number }}</h5>
-            <h5>IFSC Code: {{ $paymentDetails->ifsc_code }}</h5>
+            <div class="payment-details">
+                <h5>UPI ID: {{ $payment->upi_id }}</h5>
+                <h5>Bank Name: {{ $payment->bank_name }}</h5>
+                <h5>Account Number: {{ $payment->account_number }}</h5>
+                <h5>IFSC Code: {{ $payment->ifsc_code }}</h5>
+            </div>
         </div>
-    </div>
+    @endforeach
 @else
-    <p>No payment methods available.</p>
+    <p class="alert alert-warning text-center">No payment methods available.</p>
 @endif
+
 
 
 

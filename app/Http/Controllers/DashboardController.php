@@ -73,8 +73,8 @@ class DashboardController extends Controller
 
     // Fetch all admin payment methods (Updated logic)
     $paymentDetails = AdminPaymentDetail::all();  // Get all payment methods
-    $paymentDetails = AdminPaymentDetail::latest()->first();  // Fetch the latest payment method
-    $paymentDetails = AdminPaymentDetail::inRandomOrder()->first();  // Fetch a random payment method
+    //$paymentDetails = AdminPaymentDetail::latest()->first();  // Fetch the latest payment method
+    //$paymentDetails = AdminPaymentDetail::inRandomOrder()->first();  // Fetch a random payment method
 
 
     // Send data to the view
